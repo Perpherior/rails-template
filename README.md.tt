@@ -1,0 +1,116 @@
+# <%= app_name %>
+
+This is a Rails <%= Rails::VERSION::STRING %> app.
+
+
+## Get started
+
+You may need to install **Homebrew**, **rvm**, **postgresql**, **redis** before starting deploy the app to your mac.
+Start with following steps under **Repo Directory**, skip the steps you already done. 
+
+
+### Install Homebrew
+
+run ```brew``` in your terminal
+Firstly, check if brew in installed
+
+```
+$ brew
+-bash: brew: command not found
+```
+
+If so, run following command
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+It may ask your mac password during the installation
+
+
+### Install Postgresql & Redis
+
+**Postgresql**
+```
+$ brew install postgresql
+```
+**Redis**
+```
+$ brew install redis
+```
+
+After install successfully, follow the instruction on the build notes to start/stop mannually or automatically when login.
+Use **brew services** might be a easier way to manage **postgresql** and **redis**
+```
+$ brew services list
+$ brew services restart postgresql
+```
+
+
+### Install RVM
+
+```
+$ \curl -L https://get.rvm.io | bash -s stable
+```
+
+If already installed, try to update to the lastest version
+```
+$ rvm get stable --autolibs=enable
+```
+Then close and repoen the terminal to refresh the environment or simply run
+```
+source ~/.rvm/scripts/rvm
+```
+
+
+### Install Ruby
+
+Panda Home use ruby <%= RUBY_VERSION %>, run
+```
+$ rvm install ruby-<%= RUBY_VERSION %>
+```
+
+Check the version of ruby
+```
+$ ruby -v
+ruby <%= RUBY_VERSION %>..
+```
+
+
+### Setup rvm for panda home
+
+Set up rvm for current repo
+```
+$ rvm gemset use <%= RUBY_VERSION %>@<%= app_name %> --ruby-version --create
+```
+
+
+### Install rails 
+```
+$ gem install rails
+```
+Check the version of rails. (We are using rails <%= Rails::VERSION::STRING %> now)
+```
+$ rails -v
+Rails <%= Rails::VERSION::STRING %>
+```
+
+
+### Pull from github and create db
+```
+$ git pull origin master
+Already up-to-date.
+```
+If code is ready, then create db and make migration
+```
+$ rake db:create db:migrate
+```
+
+### Config rubocop
+
+run following cmd
+```
+overcommit --install
+```
+
+
+Now you are ready to go!!! Enjoy, cheers!! :octocat:
+

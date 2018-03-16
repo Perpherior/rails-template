@@ -1,0 +1,51 @@
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - Gemfile
+    - bin/*
+    - node_modules/**/*
+
+inherit_from:
+  - ./config/rubocop.relaxed.yml
+
+Rails:
+  Enabled: true
+
+Rails/Output:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+Style/RaiseArgs:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/Naming:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false
