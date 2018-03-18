@@ -26,9 +26,27 @@ gem 'bootstrap'
 gem 'overcommit'
 
 # API
+gem 'jbuilder', '~> 2.5'
+<% if apply_grape_api? -%>
 gem 'grape'
 gem 'grape-entity'
-gem 'jbuilder', '~> 2.5'
+<% end -%>
+
+<% if apply_activeadmin? -%>
+gem 'devise'
+gem 'activeadmin'
+gem 'activeadmin_addons'
+gem 'active_admin_flat_skin'
+<% end -%>
+
+<% if apply_sidekiq? -%>
+gem 'sidekiq'
+<% end -%>
+
+<% if apply_vue? -%>
+gem 'webpacker', '~> 3.3'
+<% end -%>
+
 
 
 group :development, :test do

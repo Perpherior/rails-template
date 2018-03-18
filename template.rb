@@ -4,6 +4,7 @@ def apply_template!
   assert_minimum_rails_version
   assert_valid_options
   assert_postgresql
+  use_vue?
   add_template_repository_to_source_path
 
   template "Gemfile.tt", force: true
@@ -22,9 +23,17 @@ def apply_template!
   copy_file "Procfile", "Procfile"
 
   apply "config/template.rb"
-  apply "app/template.rb"
+
+  apply "plugins/grape_api.rb"
+  apply "plugins/sidekiq.rb"
   
-  run_with_clean_bundler_env "overcommit --install"
+  # create_initial_migration
+  after_bundle do
+    apply "plugins/vue.rb"
+    apply "plugins/activeadmin.rb"
+
+    run_with_clean_bundler_env "overcommit --install"
+  end
 end
 
 require "fileutils"
@@ -41,7 +50,7 @@ def add_template_repository_to_source_path
     at_exit { FileUtils.remove_entry(tempdir) }
     git clone: [
       "--quiet",
-      "https://github.com/mattbrictson/rails-template.git",
+      "https://github.com/Perpherior/rails-template.git",
       tempdir
     ].map(&:shellescape).join(" ")
 
@@ -157,6 +166,35 @@ def run_with_clean_bundler_env(cmd)
     puts "Command failed, exiting: #{cmd}"
     exit(1)
   end
+end
+
+def apply_grape_api?
+  return @apply_grape_api if defined?(@apply_grape_api)
+  @apply_grape_api = \
+    ask_with_default("Use Grape API for deployment?(yes as default)", :red, "yes/no") \
+    !~ /^n(o)?/i
+end
+
+def apply_activeadmin?
+  return @apply_activeadmin if defined?(@apply_activeadmin)
+  @apply_activeadmin = \
+    ask_with_default("Use ActiveAdmin for deployment?(yes as default)", :red, "yes/no") \
+    !~ /^n(o)?/i
+end
+
+def apply_sidekiq?
+  return @apply_sidekiq if defined?(@apply_sidekiq)
+  @apply_sidekiq = \
+    ask_with_default("Use Sidekiq for deployment?(yes as default)", :red, "yes/no") \
+    !~ /^n(o)?/i
+end
+
+def use_vue?
+  @apply_vue = true if IO.read("Gemfile") =~ /^\s*gem ['"]webpacker['"]/
+end
+
+def apply_vue?
+  @apply_vue || false
 end
 
 def run_rubocop_autocorrections
