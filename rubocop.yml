@@ -4,6 +4,20 @@ AllCops:
     - Gemfile
     - bin/*
     - node_modules/**/*
+    - config/environments/*
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/admin/*.rb'
+    - 'config/routes.rb'
+    - 'app/models/*.rb'
+Layout/CommentIndentation:
+  Exclude:
+    - 'config/initializers/*.rb'
+
+Layout/IndentationConsistency:
+  Exclude:
+    - 'config/initializers/*.rb'
 
 inherit_from:
   - ./config/rubocop.relaxed.yml
@@ -15,6 +29,9 @@ Rails/Output:
   Enabled: false
 
 Rails/FilePath:
+  Enabled: false
+
+Rails/SkipsModelValidations:
   Enabled: false
 
 Rails/HasAndBelongsToMany:
@@ -34,9 +51,6 @@ Style/AsciiComments:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
-
-Style/Naming:
-  Enabled: false
 
 Style/BlockComments:
   Enabled: false
