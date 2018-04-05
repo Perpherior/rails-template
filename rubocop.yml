@@ -5,6 +5,8 @@ AllCops:
     - bin/*
     - node_modules/**/*
     - config/environments/*
+    - config/initializers/*
+    - db/**/*
 
 Metrics/BlockLength:
   Exclude:

@@ -18,6 +18,7 @@ def apply_template!
 
   copy_file "rubocop.yml", ".rubocop.yml"
   copy_file "overcommit.yml", ".overcommit.yml"
+  copy_file "env", ".env"
 
   copy_file "Procfile", "Procfile"
 
