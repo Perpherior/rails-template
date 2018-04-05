@@ -5,13 +5,13 @@ This is rails templates for generating new rails projecct.
 ## Create new rails repo by using
 
 ```ruby
-rails new <repo-name> -d=postgresql -m https://raw.githubusercontent.com/Perpherior/rails-template/master/template.rb
+rails new <repo-name> -d=postgresql -T -m https://raw.githubusercontent.com/Perpherior/rails-template/master/template.rb
 ```
 
 ## or integrate vue js by webpack
 
 ```ruby
-rails new <repo-name> -d=postgresql --webpack=vue -m https://raw.githubusercontent.com/Perpherior/rails-template/master/template.rb
+rails new <repo-name> -d=postgresql -T --webpack=vue -m https://raw.githubusercontent.com/Perpherior/rails-template/master/template.rb
 ```
 
 ## come with 3 options
