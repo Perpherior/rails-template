@@ -4,7 +4,6 @@ def apply_template!
   assert_minimum_rails_version
   assert_valid_options
   assert_postgresql
-  use_vue?
   add_template_repository_to_source_path
 
   template "Gemfile.tt", force: true
@@ -24,12 +23,20 @@ def apply_template!
 
   apply "config/template.rb"
 
-  apply "plugins/grape_api.rb"
-  apply "plugins/sidekiq.rb"
-  
+  if apply_grape_api?
+    apply "plugins/grape_api.rb"
+  end
+
+  if apply_sidekiq?
+    apply "plugins/sidekiq.rb"
+  end
+
   # create_initial_migration
   after_bundle do
-    apply "plugins/vue.rb"
+    if apply_vue?
+      apply "plugins/vue.rb"
+    end
+
     apply "plugins/activeadmin.rb"
 
     run_with_clean_bundler_env "overcommit --install"
@@ -189,12 +196,9 @@ def apply_sidekiq?
     !~ /^n(o)?/i
 end
 
-def use_vue?
-  @apply_vue = true if IO.read("Gemfile") =~ /^\s*gem ['"]webpacker['"]/
-end
-
 def apply_vue?
-  @apply_vue || false
+  return @apply_vue if defined?(@apply_vue)
+  @apply_vue = IO.read("Gemfile") =~ /^\s*gem ['"]webpacker['"]/
 end
 
 def run_rubocop_autocorrections
