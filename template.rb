@@ -1,7 +1,8 @@
 RAILS_REQUIREMENT = "~> 5.1.0".freeze
+RAILS_V = "5.1.0".freeze
+RUBY_VERSION = "2.5.0".freeze
 
 def apply_template!
-  assert_minimum_rails_version
   assert_valid_options
   assert_postgresql
   add_template_repository_to_source_path
@@ -13,7 +14,6 @@ def apply_template!
 
   copy_file "gitignore.tt", ".gitignore", force: true
 
-  template "ruby-version.tt", ".ruby-version"
   template "ruby-gemset.tt", ".ruby-gemset"
 
   copy_file "rubocop.yml", ".rubocop.yml"
